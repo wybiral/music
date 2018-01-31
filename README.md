@@ -1,4 +1,4 @@
 # music
 Procedural music with Javascript
 
-Demo: [davy.wtf/music](http://davy.wtf/music/)
+Demo: [wybiral.github.io/music](https://wybiral.github.io/music/)
