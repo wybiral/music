@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+  transition: background-color 1s ease;
+}
+
 h1 {
     margin: 1em;
     text-align: center;
