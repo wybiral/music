@@ -14,7 +14,11 @@ window.onload = () => {
             // Less than 1 second queued up, generate more
             style.randomize(budio);
             main.style.fontFamily = randomFont();
-            main.style.background = randomColor();
+            const d = Math.random() * 365 | 0;
+            const a = randomColor();
+            const b = randomColor();
+            const bg = 'linear-gradient(' + d + 'deg, ' + a + ', ' + b + ')';
+            main.style.background = bg;
             title.innerHTML = style.key.note + ' ' + style.scale.name;
             let note = style.key;
             for (let i = 0; i < 40; i++) {
