@@ -5,7 +5,7 @@ const Scale = require('budio').Scale;
 window.onload = () => {
     const budio = new BudioContext();
     const style = new Style();
-    const body = document.body;
+    const main = document.querySelector('main');
     const title = document.getElementById('title');
     let time = budio.now;
     const loop = () => {
@@ -13,7 +13,8 @@ window.onload = () => {
             console.log(time, budio.now);
             // Less than 1 second queued up, generate more
             style.randomize(budio);
-            body.style.background = randomColor();
+            main.style.fontFamily = randomFont();
+            main.style.background = randomColor();
             title.innerHTML = style.key.note + ' ' + style.scale.name;
             let note = style.key;
             for (let i = 0; i < 40; i++) {
@@ -156,6 +157,15 @@ const randomTiming = () => {
 // Pick a random value from an array
 const choice = array => {
     return array[Math.random() * array.length | 0];
+};
+
+const randomFont = () => {
+    return choice([
+        'serif',
+        'sans-serif',
+        'monospace',
+        'cursive',
+    ]);
 };
 
 const randomColor = () => {

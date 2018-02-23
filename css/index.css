@@ -8,11 +8,13 @@ html, body {
     height: 100%;
 }
 
-body {
-  transition: background-color 1s ease;
+main {
+    width: 100%;
+    height: 100%;
+    transition: background-color 1s ease;
 }
 
 h1 {
-    margin: 1em;
+    padding-top: 1em;
     text-align: center;
 }
