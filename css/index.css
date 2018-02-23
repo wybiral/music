@@ -8,10 +8,16 @@ html, body {
     height: 100%;
 }
 
-main {
-    width: 100%;
-    height: 100%;
-    transition: background-color 1s ease;
+#bg0, #bg1, main {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#bg0, #bg1 {
+    transition: opacity 10s linear;
 }
 
 h1 {
