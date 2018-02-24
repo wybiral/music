@@ -5,33 +5,37 @@ const Scale = require('budio').Scale;
 window.onload = () => {
     const budio = new BudioContext();
     const style = new Style();
-    const bgs = [
+    let index = 0;
+    const backgrounds = [
         document.getElementById('bg0'),
         document.getElementById('bg1')
     ];
-    let bg = 0;
-    const title = document.getElementById('title');
+    const titles = [
+        document.querySelector('#bg0 > h1'),
+        document.querySelector('#bg1 > h1')
+    ];
     let time = budio.now;
     const loop = () => {
+        // Less than 1 second queued up, generate more
         if (time - budio.now < 1.0) {
-            console.log(time, budio.now);
-            // Less than 1 second queued up, generate more
+            backgrounds[index].style.opacity = 0;
             style.randomize(budio);
-            title.style.fontFamily = randomFont();
             const d = Math.random() * 365 | 0;
             const a = randomColor();
             const b = randomColor();
             const grad = 'linear-gradient(' + d + 'deg,' + a + ',' + b + ')';
-            bgs[bg].style.opacity = 0;
-            bg = 1 - bg;
-            bgs[bg].style.background = grad;
-            bgs[bg].style.opacity = 1;
-            title.innerHTML = style.key.note + ' ' + style.scale.name;
-            let note = style.key;
-            for (let i = 0; i < 40; i++) {
-                [note, time] = style.play(budio, note, time);
-            }
-            style.key = note;
+            index = 1 - index;
+            titles[index].style.fontFamily = randomFont();
+            titles[index].innerText = style.key.note + ' ' + style.scale.name;
+            backgrounds[index].style.background = grad;
+            backgrounds[index].style.opacity = 1;
+            setTimeout(() => {
+                let note = style.key;
+                for (let i = 0; i < 40; i++) {
+                    [note, time] = style.play(budio, note, time);
+                }
+                style.key = note;
+            }, 0);
         }
         setTimeout(loop, 100);
     };
@@ -84,7 +88,7 @@ class Style {
             const wave = budio.sin(frequency * (i + 1), duration);
             vector.add(wave.mul(harmonics[i]));
         }
-        return vector.mul(this.shape(duration)).mul(0.01);
+        return vector.mul(this.shape(duration)).mul(0.2 / harmonics.length);
     }
 
 }
@@ -132,7 +136,13 @@ const randomShape = budio => {
             shape.div(shape.length);
             shape.map(x => 1.716 * Math.pow(x, 0.5) - 1.716 * Math.pow(x, 3));
             return shape;
-        }
+        },
+        duration => {
+            const shape = budio.range(duration);
+            shape.div(shape.length);
+            shape.map(x => 1.315 * Math.pow(x, 0.5) - 1.315 * Math.pow(x, 7));
+            return shape;
+        },
     ];
     if (Math.random() < 0.1) {
         // This one isn't always an option
@@ -148,7 +158,7 @@ const randomShape = budio => {
 // Generate random harmonic components
 const randomHarmonics = () => {
     const harmonics = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
         harmonics.push(Math.random());
     }
     return harmonics;
