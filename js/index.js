@@ -3,6 +3,11 @@ const Note = require('budio').Note;
 const Scale = require('budio').Scale;
 
 window.onload = () => {
+    document.body.addEventListener('click', start);
+};
+
+function start() {
+    document.body.removeEventListener('click', start);
     const budio = new BudioContext();
     const style = new Style();
     let index = 0;
@@ -28,6 +33,7 @@ window.onload = () => {
             titles[index].style.fontFamily = randomFont();
             titles[index].innerText = style.key.note + ' ' + style.scale.name;
             backgrounds[index].style.background = grad;
+            backgrounds[index].style.color = '#000';
             backgrounds[index].style.opacity = 1;
             setTimeout(() => {
                 let note = style.key;
@@ -40,7 +46,7 @@ window.onload = () => {
         setTimeout(loop, 100);
     };
     loop();
-};
+}
 
 // Randomizing musical style class
 class Style {

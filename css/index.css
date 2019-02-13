@@ -22,13 +22,17 @@ html, body {
 }
 
 h1 {
+    font-family: sans-serif;
     text-align: center;
 }
 
 #bg0 {
+    color: #0f0;
+    background: #000;
     padding-top: 2em;
 }
 
 #bg1 {
+    opacity: 0;
     padding-top: 4em;
 }
